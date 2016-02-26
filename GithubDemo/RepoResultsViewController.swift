@@ -14,14 +14,15 @@ import AFNetworking
 class RepoResultsViewController: UIViewController {
 
     var searchBar: UISearchBar!
-    var searchSettings = GithubRepoSearchSettings()
+    var settings = GithubRepoSearchSettings()
     @IBOutlet weak var tableView: UITableView!
 
+    
     var repos: [GithubRepo]!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
         // Initialize the UISearchBar
         searchBar = UISearchBar()
         searchBar.delegate = self
@@ -33,9 +34,14 @@ class RepoResultsViewController: UIViewController {
         
         tableView.dataSource = self
         
+        
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         // Perform the first search when the view controller first loads
         doSearch()
+
     }
 
     // Perform the search.
@@ -44,7 +50,7 @@ class RepoResultsViewController: UIViewController {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 
         // Perform request to GitHub API to get the list of repositories
-        GithubRepo.fetchRepos(searchSettings, successCallback: { (newRepos) -> Void in
+        GithubRepo.fetchRepos(settings, successCallback: { (newRepos) -> Void in
 
             // Print the returned repositories to the output window
             for repo in newRepos {
@@ -108,8 +114,32 @@ extension RepoResultsViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchSettings.searchString = searchBar.text
+        settings.searchString = searchBar.text
         searchBar.resignFirstResponder()
         doSearch()
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navController = segue.destinationViewController as! UINavigationController
+        let vc = navController.topViewController as! SearchSettingsViewController
+        vc.settings = settings
+        print("Settings: \(settings.minStars)")
+        vc.delegate = self
+    }
+}
+
+extension RepoResultsViewController: SettingsPresentingViewControllerDelegate {
+    func didSaveSettings(settings: GithubRepoSearchSettings) {
+        
+        print("save")
+        self.dismissViewControllerAnimated(true, completion: nil)
+        	
+        self.settings = settings
+        tableView.reloadData()
+    }
+    func didCancelSettings() {
+        print("cancel")
+
+        self.dismissViewControllerAnimated(true, completion: nil)
+
     }
 }

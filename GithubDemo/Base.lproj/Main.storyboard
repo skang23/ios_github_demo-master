@@ -3,8 +3,67 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Search Settings View Controller-->
+        <scene sceneID="6w7-RV-FBd">
+            <objects>
+                <viewController id="VCa-fm-0Wy" customClass="SearchSettingsViewController" customModule="GithubDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YYI-3f-5dn"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vhk-Va-9tW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tdn-Zr-N1X">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="LGH-pM-1BB">
+                                <rect key="frame" x="56" y="200" width="209" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="VCa-fm-0Wy" eventType="valueChanged" id="IsS-nF-6lt"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TtD-ko-Obl">
+                                <rect key="frame" x="139" y="160" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="fGZ-sc-qAd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TtD-ko-Obl" firstAttribute="centerX" secondItem="tdn-Zr-N1X" secondAttribute="centerX" id="19k-b5-Fsa"/>
+                            <constraint firstItem="LGH-pM-1BB" firstAttribute="leading" secondItem="tdn-Zr-N1X" secondAttribute="leadingMargin" constant="42" id="7on-DA-adi"/>
+                            <constraint firstItem="TtD-ko-Obl" firstAttribute="top" secondItem="YYI-3f-5dn" secondAttribute="bottom" constant="96" id="M6e-rG-MzO"/>
+                            <constraint firstItem="LGH-pM-1BB" firstAttribute="top" secondItem="TtD-ko-Obl" secondAttribute="bottom" constant="19" id="WjM-ib-umY"/>
+                            <constraint firstItem="LGH-pM-1BB" firstAttribute="centerX" secondItem="TtD-ko-Obl" secondAttribute="centerX" id="ZEz-qj-I5a"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="zWG-X8-RVF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="syL-GL-EXE">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="VCa-fm-0Wy" id="7JA-Sk-qAu"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="zZo-Pu-fab">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="VCa-fm-0Wy" id="oHh-CV-jet"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="slider" destination="LGH-pM-1BB" id="0cC-Bp-Wgt"/>
+                        <outlet property="starsCount" destination="TtD-ko-Obl" id="o3c-Ub-tmo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OTG-Ww-pS0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1185" y="-516"/>
+        </scene>
         <!--Repo Results View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -99,6 +158,7 @@
                                                 <constraint firstItem="rqp-fA-bkm" firstAttribute="top" secondItem="7kr-Bf-9Hp" secondAttribute="bottom" constant="8" id="Hzj-fD-8RW"/>
                                                 <constraint firstItem="zsk-F5-ASb" firstAttribute="top" secondItem="JI4-zs-lDi" secondAttribute="top" constant="52" id="Ixw-gP-w25"/>
                                                 <constraint firstItem="7kr-Bf-9Hp" firstAttribute="leading" secondItem="JI4-zs-lDi" secondAttribute="leading" constant="13" id="Upp-2B-Lky"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rqp-fA-bkm" secondAttribute="bottom" constant="10" id="WCb-rm-KjR"/>
                                                 <constraint firstItem="zsk-F5-ASb" firstAttribute="leading" secondItem="mpF-me-wev" secondAttribute="trailing" constant="13" id="ala-vp-Rnv"/>
                                                 <constraint firstItem="6HO-JH-Pe6" firstAttribute="leading" secondItem="JI4-zs-lDi" secondAttribute="leading" constant="8" id="g0Y-dJ-ORX"/>
                                                 <constraint firstItem="usI-ca-HBe" firstAttribute="top" secondItem="JI4-zs-lDi" secondAttribute="top" id="jHY-vV-Ypj"/>
@@ -133,7 +193,13 @@
                             <constraint firstAttribute="trailing" secondItem="Jsk-qy-2Wb" secondAttribute="trailing" id="Yfk-VY-9Sj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="x5q-EH-pP8"/>
+                    <navigationItem key="navigationItem" id="x5q-EH-pP8">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="7ku-8q-rvH">
+                            <connections>
+                                <segue destination="dft-WB-j5J" kind="modal" id="1vt-ru-eyr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Jsk-qy-2Wb" id="ZN0-X6-JWI"/>
                     </connections>
@@ -159,6 +225,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dru-y2-L7C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="70.400000000000006" y="-527.29333333333329"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Qob-eK-yPo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dft-WB-j5J" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tO7-Qg-NPz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="VCa-fm-0Wy" kind="relationship" relationship="rootViewController" id="hmM-WY-ALQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jNt-dH-VIL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="849" y="-651"/>
         </scene>
     </scenes>
     <resources>
